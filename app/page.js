@@ -5,8 +5,11 @@ import getStripe from "@/utils/getStripe";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { AppBar, Box, Button, Container, Grid, Toolbar, Typography } from "@mui/material";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   const handleSubmit = async () => {
     const checkoutSession = await fetch('/api/checkout_session', {
       method: 'POST',
@@ -57,7 +60,7 @@ export default function Home() {
         <Box>
           <Typography variant='h2' gutterBottom>Welcome to Flashcard</Typography>
           <Typography variant='h5' gutterBottom>The easiest way to make flashcards from your text</Typography>
-          <Button variant='contained' color='primary' sx={{ mt: 2 }}>Get Started</Button>
+          <Button variant='contained' color='primary' sx={{ mt: 2 }} onClick={() => router.push('/generate')}>Get Started</Button>
         </Box>
       </Container>
       <Box sx = {{my: 6, mx: 3}}>
