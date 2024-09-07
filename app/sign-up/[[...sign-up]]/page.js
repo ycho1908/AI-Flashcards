@@ -7,7 +7,7 @@ export default function SignUpPage() {
         <Container maxWidth='100vw'>
             <AppBar position='static'>
                 <Toolbar>
-                    <Typography variant='h6' sx={{flexGrow: 1,}}>Flashcard</Typography>
+                    <Typography variant='h6' sx={{flexGrow: 1,}}>StudySphere</Typography>
                     <Button color='inherit'>
                         <Link href='/sign-in' passHref>Login</Link>
                     </Button>

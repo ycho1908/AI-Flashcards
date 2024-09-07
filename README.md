@@ -1,3 +1,8 @@
+## Must run this for the backend 
+uvicorn app.api.main:app --reload --port 3000 --env-file .env.local
+(inside the app directory)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
