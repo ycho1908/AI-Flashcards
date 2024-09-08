@@ -78,7 +78,7 @@ export default function Home() {
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography variant='h6' gutterBottom>Smart Support</Typography>
-            <Typography>Get access to flashcards and note taking guidance.</Typography>
+            <Typography>Get access to flashcards and time management guidance.</Typography>
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography variant='h6' gutterBottom>Accessible</Typography>
