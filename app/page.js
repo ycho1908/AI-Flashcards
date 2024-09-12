@@ -71,7 +71,21 @@ export default function Home() {
       </Container>
       <Box sx = {{my: 6, mx: 3}}>
         <Typography variant='h4' gutterBottom>Features</Typography>
-        <Grid container spacing={4}>
+        <Box sx={{p: 3, border:'1px solid', borderColor: 'grey.300', borderRadius: 2, boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px'}}>
+          <Typography variant='h6' gutterBottom>Easy Text Input</Typography>
+          <Typography>Simply input your text and let our software do the rest.</Typography>
+        </Box>
+        <br/>
+        <Box sx={{p: 3, border:'1px solid', borderColor: 'grey.300', borderRadius: 2, boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px'}}>
+          <Typography variant='h6' gutterBottom>Smart Support</Typography>
+          <Typography>Get access to flashcards and time management guidance.</Typography>
+        </Box>
+        <br/>
+        <Box sx={{p: 3, border:'1px solid', borderColor: 'grey.300', borderRadius: 2, boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px'}}>
+          <Typography variant='h6' gutterBottom>Accessible</Typography>
+          <Typography>Completely free to support every students.</Typography>
+        </Box>
+        {/* <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Typography variant='h6' gutterBottom>Easy Text Input</Typography>
             <Typography>Simply input your text and let our software do the rest.</Typography>
@@ -84,13 +98,13 @@ export default function Home() {
             <Typography variant='h6' gutterBottom>Accessible</Typography>
             <Typography>Completely free to support every students.</Typography>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Box>
       <Box sx={{my: 6, textAlign: 'center'}}>
         <Typography variant='h4' gutterBottom>Options</Typography>
         <Grid container justifyContent="center" spacing={4}>
           <Grid item xs={12} md={4}>
-            <Box sx={{p: 3, border:'1px solid', borderColor: 'grey.300', borderRadius: 2,}}>
+            <Box sx={{p: 3, border:'1px solid', borderColor: 'grey.300', borderRadius: 2, boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px'}}>
               <Typography variant='h5' gutterBottom>Flashcards</Typography>
               <Typography variant='h6' gutterBottom>FREE after signing up</Typography>
               <Typography>Generate flashcards with AI to start learning about a topic.</Typography>
@@ -102,7 +116,7 @@ export default function Home() {
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Box sx={{p: 3, border:'1px solid', borderColor: 'grey.300', borderRadius: 2,}}>
+            <Box sx={{p: 3, border:'1px solid', borderColor: 'grey.300', borderRadius: 2, boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px'}}>
               <Typography variant='h5' gutterBottom>Pomodoro Timer</Typography>
               <Typography variant='h6' gutterBottom>FREE after signing up</Typography>
               <Typography>Get guidance in time management.</Typography>

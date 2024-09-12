@@ -3,13 +3,14 @@
 import { useUser } from "@clerk/nextjs"
 import { db } from "@/firebase"
 import { Box, Button, Card, CardActionArea, CardContent, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Paper, Stack, TextField, Typography } from "@mui/material"
-import { collection, doc, getDoc } from "firebase/firestore"
+import { collection, doc, getDoc, writeBatch } from "firebase/firestore"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai"
 import Flashcard from "../flashcard/page"
 
 export default function Generate() {
+    const {isLoaded, isSignedIn, user} = useUser()
     const [flashcards ,setFlashcards] = useState([])
     const [userInput, setUserInput] = useState("")
     const [loading, setLoading] = useState(false)
@@ -17,6 +18,7 @@ export default function Generate() {
     const [flipped, setFlipped] = useState({})
     const [open, setOpen] = useState(false)
     const [name, setName] = useState("")
+    const router = useRouter();
 
     const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY
     const MODEL_NAME = 'gemini-1.5-flash'
@@ -123,9 +125,45 @@ export default function Generate() {
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
-    const saveFlashcard = () => {
-        console.log('Saving flashcards: ', name)
+    // const saveFlashcard = () => {
+    //     console.log('Saving flashcards: ', name)
+    //     handleClose()
+    // }
+
+    const saveFlashcard = async () => {
+        if (!name) {
+            alert('Please enter a name')
+            return 
+        }
+
+        const batch = writeBatch(db)
+        const userDocRef = doc(collection(db, 'users'), user.id)
+        const docSnap = await getDoc(userDocRef)
+
+        if (docSnap.exists()) {
+            const collections = docSnap.data().flashcards || []
+            if (collections.find((f) => f.name === name)) {
+                alert('Flashcard collection with the same name already exists.')
+                return
+            }
+            else {
+                collections.push({name})
+                batch.set(userDocRef, {flashcards: collections}, {merge: true})
+            }
+        }
+        else {
+            batch.set(userDocRef, {flashcards: [{name}]})
+        }
+
+        const colRef = collection(userDocRef, name)
+        flashcards.forEach((flashcard) => {
+            const cardDocRef = doc(colRef)
+            batch.set(cardDocRef, flashcard)
+        })
+
+        await batch.commit()
         handleClose()
+        router.push('/flashcards')
     }
 
     return (
@@ -137,6 +175,12 @@ export default function Generate() {
                  <Button variant='contained' color='primary' onClick={handleGenerate} fullWidth>Generate</Button>
              </Paper>
          </Box>
+
+         {loading && (
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                <CircularProgress />
+            </Box>
+        )}
 
          {flashcards.length > 0 && (
             <Box sx={{ mt: 4 }}>

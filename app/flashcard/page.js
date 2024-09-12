@@ -20,7 +20,7 @@ export default function Flashcard() {
     useEffect(() => {
         async function getFlashcard() {
             if (!search || !user) return
-            const colRef = collection(doc(collection(db, 'users'), user.id), search)
+            const docRef = collection(doc(collection(db, 'users'), user.id), search)
             const docs = await getDocs(docRef)
             const flashcards = []
 
@@ -56,7 +56,7 @@ export default function Flashcard() {
                                     perspective: '1000px',
                                     '& > div': {
                                         transition: 'transform 0.6s',
-                                        transformStyle: 'perserve-3d',
+                                        transformStyle: 'preserve-3d',
                                         position: 'relative',
                                         width: '100%',
                                         height: '200px',
@@ -64,7 +64,7 @@ export default function Flashcard() {
                                         transform: flipped[index] ? 'rotateY(180deg)' : 'rotateY(0deg)',
                                     },
                                     '& > div > div': {
-                                        transition: 'absolute',
+                                        position: 'absolute',
                                         width: '100%',
                                         height: '100%',
                                         backfaceVisibility: 'hidden',
